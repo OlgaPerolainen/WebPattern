@@ -1,0 +1,13 @@
+﻿@model WebPatter.WebUI.Models.Pattern
+
+
+<div class="patterns_list2">
+    <img class="img-thumbnail" height="80"
+         src="@Url.Action("GetImage", "Pattern",
+                        new { Model.PatternID})" />
+    <h3>@Model.Name</h3>
+
+    <div class="pull-right">
+        @Html.HiddenFor(x => x.PatternID)
+    </div>
+</div>

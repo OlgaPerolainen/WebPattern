@@ -1,0 +1,78 @@
+﻿@model WebPatter.WebUI.Models.AdminViewModel
+
+@{
+    ViewBag.Title = "Администратор";
+}
+
+<div class="profile">
+    <p class="account_head">Выкройки</p>
+    @using (Html.BeginForm("ChangePattern", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+<div class="testimonials">
+    <p>Выкройки доступные всем пользователям</p>
+    <p>Выберите, какие выкройки станут доступны только зарегистрированным пользователям</p>
+    <div class="pattern_box">
+
+        @for (int item = 0; item < Model.PatternsFree.Count(); item++)
+        {
+        <div class="patterns_list">
+            <div class="patterns_list2">
+                <img class="img-thumbnail" height="80"
+                     src="@Url.Action("GetImage", "Pattern",
+                        new { Model.PatternsFree[item].PatternID})" />
+                <h3>@Model.PatternsFree[item].Name</h3>
+                <div class="pull-right">
+                    @Html.HiddenFor(x => x.PatternsFree[item].PatternID)
+                </div>
+            </div>
+            @Html.HiddenFor(x => x.PatternsFree[item].PatternID)
+            <p class="radio_id_p"> @Html.CheckBoxFor(m => Model.PatternsFree[item].IsChecked, new { Id = Model.PatternsFree[item].PatternID })</p>
+        </div>
+        }
+    </div>
+    <p>Выкройки доступные зарегистрированным пользователям</p>
+    <p>Выберите, какие выкройки станут доступны всем пользователям</p>
+    <div class="pattern_box">
+
+        @for (int item = 0; item < Model.PatternsNotFree.Count(); item++)
+        {
+        <div class="patterns_list">
+            <div class="patterns_list2">
+                <img class="img-thumbnail" height="80"
+                     src="@Url.Action("GetImage", "Pattern",
+                        new { Model.PatternsNotFree[item].PatternID})" />
+                <h3>@Model.PatternsNotFree[item].Name</h3>
+                <div class="pull-right">
+                    @Html.HiddenFor(x => x.PatternsNotFree[item].PatternID)
+                </div>
+            </div>
+            @Html.HiddenFor(x => x.PatternsNotFree[item].PatternID)
+            <p class="radio_id_p"> @Html.CheckBoxFor(m => m.PatternsNotFree[item].IsChecked, new { Id = Model.PatternsNotFree[item].PatternID })</p>
+        </div>
+        }
+    </div>
+</div>
+        <p><input type="submit" value="Готово" /></p>
+    }
+    <p class="account_head">Аккаунты</p>
+    @using (Html.BeginForm("ChangeAccounts", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+<table class="account_form">
+    <tr>
+        <td class="table_head">Название</td>
+        <td class="table_head">Цена (рyб)</td>
+    </tr>
+    @for (int i = 0; i < Model.Accounts.Count(); i++)
+    {
+        <tr>
+            <td>
+                @Html.HiddenFor(m => m.Accounts[i].AccountId)
+                @Html.DisplayFor(m => m.Accounts[i].Name)
+            </td>
+            <td>@Html.TextBoxFor(m => m.Accounts[i].Price, new { @Value = Model.Accounts[i].Price })</td>
+        </tr>
+    }
+</table>
+        <p><input type="submit" value="Готово" /></p>
+    }
+</div>

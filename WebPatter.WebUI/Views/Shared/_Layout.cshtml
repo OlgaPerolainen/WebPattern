@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link href="@Url.Content("~/Content/Style.css")"
+          rel="stylesheet" type="text/css" />*@
+    <link href="@Url.Content("~/Content/Style2.css")"
+          rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header id="main-header">
+        <h1 style="margin:20px 0;">
+            <a href="@Url.Action("Index", "Home")" class="links">
+                <img alt="" src="@Url.Content("~/Content/logo.png")" style="width:95px; height:95px;">
+            </a>
+        </h1>
+    </header>
+    <div class="navbar navbar-inverse navbar-fixed-top my_navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                    <img alt="" src="@Url.Content("~/Content/logo.png")" style="width:25px; height:25px;">
+                </a>*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        @if (Roles.IsUserInRole("admin"))
+                        {
+                            @Html.ActionLink("Выкройки", "List", "Pattern", routeValues: null, htmlAttributes: new { title = "Выкройки" })
+                        }
+                        else
+                        {
+                            if (Roles.IsUserInRole("user"))
+                            {
+                                @Html.ActionLink("Выкройки", "UserList", "Pattern", routeValues: null, htmlAttributes: new { title = "Выкройки" })
+                            }
+                            else
+                            {
+                                if (Roles.IsUserInRole("premium"))
+                                {
+                                    @Html.ActionLink("Личный кабинет", "List", "Pattern", routeValues: null, htmlAttributes: new { title = "Выкройки" })
+                                }
+                                else
+                                { @Html.ActionLink("Выкройки", "AnonymUserList", "Pattern", routeValues: null, htmlAttributes: new { title = "Выкройки" })}
+                        }
+                    }
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="@Url.Content("~/Scripts/scroller.js")" type="text/javascript"></script>
+</body>
+</html>

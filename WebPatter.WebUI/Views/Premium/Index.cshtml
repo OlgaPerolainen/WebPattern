@@ -1,0 +1,21 @@
+﻿@model WebPatter.WebUI.Models.PatternViewModel
+
+@{
+    ViewBag.Title = "Личный кабинет";
+}
+
+<div class="testimonials">
+    <div class="pattern_list_scroll">
+        @foreach (var p in @Model.Patterns)
+        {
+            <div class="patterns_list">
+                @Html.Partial("PatternSummary", p)
+                <p class="radio_id_p">@Html.RadioButtonFor(x => x.parametersInput.RadioButtonId, p.PatternID)</p>
+            </div>
+        }
+
+    </div>
+    <span class="btn prev">&lt;</span>
+    <span class="btn next">&gt;</span>
+</div>
+

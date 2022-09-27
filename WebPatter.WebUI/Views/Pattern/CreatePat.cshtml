@@ -1,0 +1,33 @@
+﻿@model WebPatter.WebUI.Models.PatternViewModel
+
+@{
+    ViewBag.Title = "Выкройка";
+}
+
+<table class="account_form" style="margin-left:1%;">
+    <tr>
+        <td>Объём талии:</td>
+        <td>@Model.myPattern.Waist</td>
+    </tr>
+    <tr>
+        <td>Объём бедер:</td>
+        <td>@Model.myPattern.HipWidth</td>
+    </tr>
+    <tr>
+        <td>Длина юбки:</td>
+        <td>@Model.myPattern.Length</td>
+    </tr>
+</table>
+<div style="text-align: left; margin-left: 1%;">
+    <p class="side-left-margin">
+        <input type="button" value="Скачать" class=".login_btn" onclick="location.href='@Url.Action("Download", "Pattern",
+                new { PatternID = Model.PatternID, Waist = Model.myPattern.Waist, HipWidth = Model.myPattern.HipWidth, Length = Model.myPattern.Length})'" />
+    </p>
+</div>
+<p>Ваша выкройка:</p>
+<div class="image_scroller">
+    <img class="pattern_image"
+         src="@Url.Action("Create", "Pattern",
+                new { Model.PatternID, Waist = Model.myPattern.Waist, HipWidth = Model.myPattern.HipWidth, Length = Model.myPattern.Length})" />
+</div>
+

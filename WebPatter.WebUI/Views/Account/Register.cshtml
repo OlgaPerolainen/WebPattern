@@ -1,0 +1,45 @@
+﻿@model WebPatter.WebUI.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Регистрация";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "register_form" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    <table class="register_form_align">
+        <tr>
+            <td class="form_left">@Html.LabelFor(m => m.FirstName)</td>
+            <td>@Html.TextBoxFor(m => m.FirstName)</td>
+            <td class="form_right">@Html.ValidationMessage("FirstName", new { @class = "validation_message" })</td>
+        </tr>
+        <tr>
+            <td class="form_left">@Html.LabelFor(m => m.LastName)</td>
+            <td colspan="2">@Html.TextBoxFor(m => m.LastName)</td>
+        </tr>
+        <tr>
+            <td class="form_left">@Html.LabelFor(m => m.Email)</td>
+            <td>@Html.TextBoxFor(m => m.Email)</td>
+            <td class="form_right">@Html.ValidationMessage("Email", new { @class = "validation_message" })</td>
+        </tr>
+        <tr>
+            <td class="form_left">@Html.LabelFor(m => m.Phone)</td>
+            <td>@Html.TextBoxFor(m => m.Phone)</td>
+            <td class="form_right">@Html.ValidationMessage("Phone", new { @class = "validation_message" })</td>
+        </tr>
+        <tr>
+            <td class="form_left">@Html.LabelFor(m => m.Password)</td>
+            <td>@Html.PasswordFor(m => m.Password)</td>
+            <td class="form_right">@Html.ValidationMessage("Password", new { @class = "validation_message" })</td>
+        </tr>
+    </table>
+
+    <p class="login_btn"><input type="submit" value="Готово" /></p>
+}
+@Html.ActionLink("Авторизация", "Login", "Account", new { @class = "auth_link2" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

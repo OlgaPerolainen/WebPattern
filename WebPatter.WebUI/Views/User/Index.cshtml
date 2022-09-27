@@ -1,0 +1,89 @@
+﻿@model WebPatter.WebUI.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Личный кабинет";
+}
+
+<div class="profile">
+    <p class="account_head">
+        Персональные данные
+    </p>
+    <div class="profile">
+        @using (Html.BeginForm("ChangeContact", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <table class="account_form">
+                <tr>
+                    <td>
+                        @Html.HiddenFor(m => m.User.UserId)
+                        @Html.LabelFor(m => m.User.FirstName, "Имя")
+                    </td>
+                    <td>@Html.TextBoxFor(m => m.User.FirstName, new { @Value = Model.User.FirstName })</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.User.LastName, "Фамилия")
+                    </td>
+                    <td>@Html.TextBoxFor(m => m.User.LastName, new { @Value = Model.User.LastName })</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.User.Phone, "Телефон")
+                    </td>
+                    <td>@Html.TextBoxFor(m => m.User.Phone, new { @Value = Model.User.Phone })</td>
+                </tr>
+
+            </table>
+            <p class="side-left"><input type="submit" value="Сохранить" /></p>
+        }
+    </div>
+<p class="account_head">Мои параметры</p>
+<div class="profile">
+    @using (Html.BeginForm("ChangeParameters", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+    <table class="account_form">
+        <tr>
+            <td>
+                @Html.HiddenFor(m => m.User.UserId)
+                @Html.LabelFor(m => m.User.Height, "Рост")
+            </td>
+            <td>@Html.TextBoxFor(m => m.User.Height, new { @Value = Model.User.Height })</td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.User.Waist, "Объём талии")
+            </td>
+            <td>@Html.TextBoxFor(m => m.User.Waist, new { @Value = Model.User.Waist })</td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.User.HipWidth, "Объём бёдер")
+            </td>
+            <td>@Html.TextBoxFor(m => m.User.HipWidth, new { @Value = Model.User.HipWidth })</td>
+        </tr>
+
+    </table>
+    <p class="side-left"><input type="submit" value="Сохранить" /></p>
+}
+    <div class="position_link">
+        <p>@Html.ActionLink(">> Построить выкройку", "UserList", "User", new { @class = "auth_link" })</p>
+    </div>
+</div>
+<p class="account_head">
+    Управление аккаунтом
+</p>
+<div class="profile">
+    <div class="position_link">
+        <p><a href="javascript:document.getElementById('logoutForm').submit()" class="auth_link">&gt;&gt; Выйти</a>
+    </div>
+    @using (Html.BeginForm("Delete", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="position_link">
+            <p class="side-left-margin"><input type="submit" value=">> Удалить аккаунт" class="auth_link3" /></p>
+        </div>
+    }
+</div>
+</div>
+

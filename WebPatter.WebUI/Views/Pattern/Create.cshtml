@@ -1,0 +1,13 @@
+﻿@model WebPatter.WebUI.Models.Pattern
+
+@{
+    ViewBag.Title = "Create";
+}
+<img class="img-thumbnail" height="80"
+     src="@Url.Action("CreatePat", "Pattern",
+                        new { Model})" />
+
+<div class="pattern">
+    <img src='@Url.Action("image")' alt="" />
+</div>
+

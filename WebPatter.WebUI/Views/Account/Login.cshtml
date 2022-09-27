@@ -1,0 +1,33 @@
+﻿@using WebPatter.WebUI.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Авторизация";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "register_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="validation_message">
+        @Html.ValidationSummary(true)
+    </div>
+    <table class="register_form_align">
+        <tr>
+            <td class="form_left">@Html.LabelFor(m => m.Email)</td>
+            <td>@Html.TextBoxFor(m => m.Email)</td>
+            <td class="form_right">@Html.ValidationMessage("Phone", new { @class = "validation_message" })</td>
+        </tr>
+        <tr>
+            <td class="form_left">@Html.LabelFor(m => m.Password)</td>
+            <td>@Html.PasswordFor(m => m.Password)</td>
+            <td class="form_right">@Html.ValidationMessage("Password", new { @class = "validation_message" })</td>
+        </tr>
+    </table>
+    <p class="login_btn"><input type="submit" value="Войти" /></p>
+}
+@Html.ActionLink("Регистрация", "Register", "Account", new { @class = "auth_link2" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,61 @@
+﻿@model WebPatter.WebUI.Models.PatternViewModel
+
+@{
+    ViewBag.Title = "Выкройки";
+}
+
+@using (Html.BeginForm("CreatePat", "Pattern", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationMessage("RadioButtonId", new { @class = "validation_message" })
+    <div class="testimonials">
+        <div class="pattern_list_scroll">
+            @foreach (var p in @Model.Patterns)
+            {
+                <div class="patterns_list">
+                    @Html.Partial("PatternSummary", p)
+                    <p class="radio_id_p">@Html.RadioButtonFor(x => x.parametersInput.RadioButtonId, p.PatternID)</p>
+                </div>
+
+            }
+        </div>
+        <span class="btn prev">&lt;</span>
+        <span class="btn next">&gt;</span>
+    </div>
+
+    <p class="label_for_table">Введите параметры для построения выкройки</p>
+    <table class="register_form register_form_align">
+        <tbody>
+            <tr>
+                <td class="form_left">@Html.LabelFor(m => m.parametersInput.Waist, "Объём талии (см)")</td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>@Html.TextBoxFor(m => m.parametersInput.Waist, new { @Value = Model.User.Waist })</td>
+                }
+                else
+                {
+                    <td>@Html.TextBoxFor(m => m.parametersInput.Waist)</td>
+                }
+                <td class="form_right">@Html.ValidationMessage("Waist", new { @class = "validation_message" })</td>
+            </tr>
+            <tr>
+                <td class="form_left">@Html.LabelFor(m => m.parametersInput.HipWidth, "Объём бёдер (см)")</td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>@Html.TextBoxFor(m => m.parametersInput.HipWidth, new { @Value = Model.User.HipWidth })</td>
+                }
+                else
+                {
+                    <td>@Html.TextBoxFor(m => m.parametersInput.HipWidth)</td>
+                }
+                <td class="form_right">@Html.ValidationMessage("HipWidth", new { @class = "validation_message" })</td>
+            </tr>
+            <tr>
+                <td class="form_left">@Html.LabelFor(m => m.parametersInput.Length, "Длина юбки (см)")</td>
+                <td>@Html.TextBoxFor(m => m.parametersInput.Length)</td>
+                <td class="form_right">@Html.ValidationMessage("Length", new { @class = "validation_message" })</td>
+            </tr>
+        </tbody>
+    </table>
+    <p><input type="submit" value="Построить" /></p>
+}
+
